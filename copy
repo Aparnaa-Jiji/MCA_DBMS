@@ -1,0 +1,480 @@
+<pre>sudo mysql
+[sudo] password for mlm: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; CREATE DATABASE new;
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; CREATE TABLE Employee(Emp_no INT PRIMARY KEY,Emp_name VAR^C
+mysql&gt; USE new;
+Database changed
+mysql&gt; CREATE TABLE Employee(Emp_no INT PRIMARY KEY,Emp_name VAR^C
+    -&gt; 
+    -&gt; 
+    -&gt; ^C
+mysql&gt; CREATE TABLE Employee(Emp_no INT PRIMARY KEY,Emp_name VARCHAR(25) NOTNULL,DOB DATE NOTNULL,destination VARCHAR(25) NOTNULL,Mobile_no INT NOTNULL,salary INT,NOTNULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;NOTNULL,DOB DATE NOTNULL,destination VARCHAR(25) NOTNULL,Mobile_no INT NOTNULL,s&apos; at line 1
+mysql&gt; CREATE TABLE Employee(Emp_no VARCHAR(25) PRIMARY KEY,Emp_name VARCHAR(25)
+ NOTNULL,DOB DATE NOTNULL,destination VARCHAR(25) NOTNULL,Mobile_no INT NOTNULL
+salary INT,NOTNULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;NOTNULL,DOB DATE NOTNULL,destination VARCHAR(25) NOTNULL,Mobile_no INT NOTNULL,s&apos; at line 1
+mysql&gt; CREATE TABLE Employee(Emp_no VARCHAR(25) PRIMARY KEY,Emp_name VARCHAR(25) NOTNULL,DOB DATE,destination VARCHAR(25),Mobile_no INT,salary INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;NOTNULL,DOB DATE,destination VARCHAR(25),Mobile_no INT,salary INT)&apos; at line 1
+mysql&gt; CREATE TABLE Employee(Emp_no VARCHAR(25) PRIMARY KEY,Emp_name VARCHAR(25) NOT NULL,DOB DATE,destination VARCHAR(25),Mobile_no INT,salary INT);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql&gt; CREATE TABLE Department(Dept_no VARCHAR(25) PRIMARY KEY,Dept_name VARCHAR(25) NOT NULL);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql&gt; ALTER TABLE Employee ADD COLUMN Dept_no VARCHAR(25);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql&gt; ALTER TABLE Employee MODIFY COLUMN Dept_no VARCHAR(25), FOREIGN KEY(Dept_no) REFERENCES Department(Dept_no);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;FOREIGN KEY(Dept_no) REFERENCES Department(Dept_no)&apos; at line 1
+mysql&gt; desc employee;
+ERROR 1146 (42S02): Table &apos;new.employee&apos; doesn&apos;t exist
+mysql&gt; desc Employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Emp_no      | varchar(25) | NO   | PRI | NULL    |       |
+| Emp_name    | varchar(25) | NO   |     | NULL    |       |
+| DOB         | date        | YES  |     | NULL    |       |
+| destination | varchar(25) | YES  |     | NULL    |       |
+| Mobile_no   | int         | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| Dept_no     | varchar(25) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql&gt; ALTER TABLE Employee ADD FOREIGN KEY(Dept_no) REFERENCES Department(Dept_no);
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql&gt; desc Employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Emp_no      | varchar(25) | NO   | PRI | NULL    |       |
+| Emp_name    | varchar(25) | NO   |     | NULL    |       |
+| DOB         | date        | YES  |     | NULL    |       |
+| destination | varchar(25) | YES  |     | NULL    |       |
+| Mobile_no   | int         | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| Dept_no     | varchar(25) | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp01&apos;,&apos;Anitta&apos;,&apos;1990-05-31&apos;,&apos;Typist&apos;,1234567890,10000,&apos;dp02;);
+    &apos;&gt; 
+    &apos;&gt; k
+    &apos;&gt; ^C
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp01&apos;,&apos;Anitta&apos;,&apos;1990-05-31&apos;,&apos;Typist&apos;,1234567890,10000,&apos;dp02&apos;);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`new`.`Employee`, CONSTRAINT `Employee_ibfk_1` FOREIGN KEY (`Dept_no`) REFERENCES `Department` (`Dept_no`))
+mysql&gt; INSERT INTO Department VALUES(&apos;dp01&apos;,&apos;IT&apos;);
+Query OK, 1 row affected (0.02 sec)
+
+mysql&gt; INSERT INTO Department VALUES(&apos;dp02&apos;,&apos;Marketing&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Department VALUES(&apos;dp03&apos;,&apos;Data Entry&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp01&apos;,&apos;Anitta&apos;,&apos;1990-05-31&apos;,&apos;Typist&apos;,1234567890,10000,&apos;dp02&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp02&apos;,&apos;Veena&apos;,&apos;1990-05-31&apos;,&apos;Analyst&apos;,1234567890,28000,&apos;dp01&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp03&apos;,&apos;Mariya&apos;,&apos;1990-05-31&apos;,&apos;Manager&apos;,1234567890,40000,&apos;dp01&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp04&apos;,&apos;Geethu&apos;,&apos;1990-05-31&apos;,&apos;clerk&apos;,1234567890,5000,&apos;dp02&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp05&apos;,&apos;Joseph&apos;,&apos;1990-05-31&apos;,&apos;clerk&apos;,1234567890,20000,&apos;dp01&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp06&apos;,&apos;Alen&apos;,&apos;1990-05-31&apos;,&apos;Manager&apos;,1234567890,42000,&apos;dp02&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp07&apos;,&apos;Aldrin&apos;,&apos;1990-05-31&apos;,&apos;Typist&apos;,1234567890,4200,&apos;dp02&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp08&apos;,&apos;Adithya&apos;,&apos;1990-05-31&apos;,&apos;Analyst&apos;,1234567890,42000,&apos;dp01&apos;);
+Query OK, 1 row affected (0.02 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp09&apos;,&apos;Anu&apos;,&apos;1990-05-31&apos;,&apos;Analyst&apos;,1234567890,7000,&apos;dp02&apos;);
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; INSERT INTO Employee VALUES(&apos;emp10&apos;,&apos;Anupma&apos;,&apos;1990-05-31&apos;,&apos;Manager&apos;,1234567890,50000,&apos;dp02&apos;);
+Query OK, 1 row affected (0.02 sec)
+
+mysql&gt; ^C
+mysql&gt; SELECT* FROM Employee;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     | 1234567890 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  40000 | dp01    |
+| emp04  | Geethu   | 1990-05-31 | clerk       | 1234567890 |   5000 | dp02    |
+| emp05  | Joseph   | 1990-05-31 | clerk       | 1234567890 |  20000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  42000 | dp02    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp09  | Anu      | 1990-05-31 | Analyst     | 1234567890 |   7000 | dp02    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  50000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+10 rows in set (0.00 sec)
+
+mysql&gt; SELECT* FROM Department;
++---------+------------+
+| Dept_no | Dept_name  |
++---------+------------+
+| dp01    | IT         |
+| dp02    | Marketing  |
+| dp03    | Data Entry |
++---------+------------+
+3 rows in set (0.00 sec)
+
+mysql&gt; Select Emp_no,Emp_name from Employee Where Department=&apos;dp02&apos;;
+ERROR 1054 (42S22): Unknown column &apos;Department&apos; in &apos;where clause&apos;
+mysql&gt; Select Emp_no,Emp_name from Employee Where &apos;dept_no&apos;=&apos;dp02&apos;;
+Empty set (0.00 sec)
+
+mysql&gt; Select Emp_no,Emp_name from Employee Where &apos;Dept_no&apos;=&apos;dp02&apos;;
+Empty set (0.00 sec)
+
+mysql&gt; Select Emp_no,Emp_name from Employee WHERE Dept_no=&apos;dp02&apos;;
++--------+----------+
+| Emp_no | Emp_name |
++--------+----------+
+| emp01  | Anitta   |
+| emp04  | Geethu   |
+| emp06  | Alen     |
+| emp07  | Aldrin   |
+| emp09  | Anu      |
+| emp10  | Anupma   |
++--------+----------+
+6 rows in set (0.00 sec)
+
+mysql&gt; ^C
+mysql&gt; select Emp_no,Emp_name,destination,dept_no,salary from Employee ORDER BY salary;
++--------+----------+-------------+---------+--------+
+| Emp_no | Emp_name | destination | dept_no | salary |
++--------+----------+-------------+---------+--------+
+| emp07  | Aldrin   | Typist      | dp02    |   4200 |
+| emp04  | Geethu   | clerk       | dp02    |   5000 |
+| emp09  | Anu      | Analyst     | dp02    |   7000 |
+| emp01  | Anitta   | Typist      | dp02    |  10000 |
+| emp05  | Joseph   | clerk       | dp01    |  20000 |
+| emp02  | Veena    | Analyst     | dp01    |  28000 |
+| emp03  | Mariya   | Manager     | dp01    |  40000 |
+| emp06  | Alen     | Manager     | dp02    |  42000 |
+| emp08  | Adithya  | Analyst     | dp01    |  42000 |
+| emp10  | Anupma   | Manager     | dp02    |  50000 |
++--------+----------+-------------+---------+--------+
+10 rows in set (0.01 sec)
+
+mysql&gt; ^C
+mysql&gt; Select Emp_no,Emp_name from Employee WHERE salary between 20000 and 50000;
++--------+----------+
+| Emp_no | Emp_name |
++--------+----------+
+| emp02  | Veena    |
+| emp03  | Mariya   |
+| emp05  | Joseph   |
+| emp06  | Alen     |
+| emp08  | Adithya  |
+| emp10  | Anupma   |
++--------+----------+
+6 rows in set (0.01 sec)
+
+mysql&gt; SELECT DISTINCT destination from Employee;
++-------------+
+| destination |
++-------------+
+| Typist      |
+| Analyst     |
+| Manager     |
+| clerk       |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql&gt; UPDATE Employee SET salary = 45000 where destination=&apos;Manager&apos;;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql&gt; SELECT* FROM Employee;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     | 1234567890 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp04  | Geethu   | 1990-05-31 | clerk       | 1234567890 |   5000 | dp02    |
+| emp05  | Joseph   | 1990-05-31 | clerk       | 1234567890 |  20000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp09  | Anu      | 1990-05-31 | Analyst     | 1234567890 |   7000 | dp02    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+10 rows in set (0.00 sec)
+
+mysql&gt; UPDATE Employee SET Mobile_No = 9876543210 where Emp_name=&apos;Veena&apos;;
+ERROR 1264 (22003): Out of range value for column &apos;Mobile_no&apos; at row 2
+mysql&gt; UPDATE Employee SET Mobile_No = 987654321 where Emp_name=&apos;Veena&apos;;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql&gt; SELECT* FROM Employee;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp04  | Geethu   | 1990-05-31 | clerk       | 1234567890 |   5000 | dp02    |
+| emp05  | Joseph   | 1990-05-31 | clerk       | 1234567890 |  20000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp09  | Anu      | 1990-05-31 | Analyst     | 1234567890 |   7000 | dp02    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+10 rows in set (0.00 sec)
+
+mysql&gt; delete from Employee where salary = 5000;
+Query OK, 1 row affected (0.02 sec)
+
+mysql&gt; SELECT* FROM Employee;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp05  | Joseph   | 1990-05-31 | clerk       | 1234567890 |  20000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp09  | Anu      | 1990-05-31 | Analyst     | 1234567890 |   7000 | dp02    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+9 rows in set (0.00 sec)
+
+mysql&gt; select Emp_no,Mobile_no where Emp_name like &apos;A%&apos;;
+ERROR 1054 (42S22): Unknown column &apos;Emp_no&apos; in &apos;field list&apos;
+mysql&gt; select Emp_no,Mobile_no from Employee where Emp_name like &apos;A%&apos;;
++--------+------------+
+| Emp_no | Mobile_no  |
++--------+------------+
+| emp01  | 1234567890 |
+| emp06  | 1234567890 |
+| emp07  | 1234567890 |
+| emp08  | 1234567890 |
+| emp09  | 1234567890 |
+| emp10  | 1234567890 |
++--------+------------+
+6 rows in set (0.00 sec)
+
+mysql&gt; select Emp_no,Emp_name,Mobile_no from Employee where Emp_name like &apos;A%&apos;;
++--------+----------+------------+
+| Emp_no | Emp_name | Mobile_no  |
++--------+----------+------------+
+| emp01  | Anitta   | 1234567890 |
+| emp06  | Alen     | 1234567890 |
+| emp07  | Aldrin   | 1234567890 |
+| emp08  | Adithya  | 1234567890 |
+| emp09  | Anu      | 1234567890 |
+| emp10  | Anupma   | 1234567890 |
++--------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql&gt; select Emp_name,Mobile_no from Employee where Emp_name like &apos;A%&apos;;
++----------+------------+
+| Emp_name | Mobile_no  |
++----------+------------+
+| Anitta   | 1234567890 |
+| Alen     | 1234567890 |
+| Aldrin   | 1234567890 |
+| Adithya  | 1234567890 |
+| Anu      | 1234567890 |
+| Anupma   | 1234567890 |
++----------+------------+
+6 rows in set (0.00 sec)
+
+mysql&gt; SELECT designation from Employee group by designation;
+ERROR 1054 (42S22): Unknown column &apos;designation&apos; in &apos;field list&apos;
+mysql&gt; select*from Employee where Emp_name like &apos;___%&apos;;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp05  | Joseph   | 1990-05-31 | clerk       | 1234567890 |  20000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp09  | Anu      | 1990-05-31 | Analyst     | 1234567890 |   7000 | dp02    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+9 rows in set (0.00 sec)
+
+mysql&gt; select*from Employee where Emp_name like &apos;____%&apos;;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp05  | Joseph   | 1990-05-31 | clerk       | 1234567890 |  20000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+8 rows in set (0.00 sec)
+
+mysql&gt; select*from Employee where Emp_name like &apos;____%&apos;,salary&gt;20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;,salary&gt;20000&apos; at line 1
+mysql&gt; select*from Employee where Emp_name like &apos;____%&apos; and salary&gt;20000;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql&gt; select * from Employees where emp_no=&apos;emp01&apos; or &apos;emp02&apos; or &apos;emp07&apos;;
+ERROR 1146 (42S02): Table &apos;new.Employees&apos; doesn&apos;t exist
+mysql&gt; select * from Employee where emp_no=&apos;emp01&apos; or &apos;emp02&apos; or &apos;emp07&apos;;
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql&gt; select * from Employee where emp_no in(&apos;emp01&apos;,&apos;emp02&apos;,&apos;emp07&apos;);
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp01  | Anitta   | 1990-05-31 | Typist      | 1234567890 |  10000 | dp02    |
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp07  | Aldrin   | 1990-05-31 | Typist      | 1234567890 |   4200 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+3 rows in set (0.00 sec)
+
+mysql&gt; Select Emp_no,Emp_name from Employee WHERE salary between 10000 and 30000;
++--------+----------+
+| Emp_no | Emp_name |
++--------+----------+
+| emp01  | Anitta   |
+| emp02  | Veena    |
+| emp05  | Joseph   |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select * from Employee where designation in(&apos;Manager&apos;,&apos;Analyst&apos;);
+ERROR 1054 (42S22): Unknown column &apos;designation&apos; in &apos;where clause&apos;
+mysql&gt; select * from Employee where designation in(&apos;Manager&apos;,&apos;Analyst&apos;);
+ERROR 1054 (42S22): Unknown column &apos;designation&apos; in &apos;where clause&apos;
+mysql&gt; select * from Employee where destination in(&apos;Manager&apos;,&apos;Analyst&apos;);
++--------+----------+------------+-------------+------------+--------+---------+
+| Emp_no | Emp_name | DOB        | destination | Mobile_no  | salary | Dept_no |
++--------+----------+------------+-------------+------------+--------+---------+
+| emp02  | Veena    | 1990-05-31 | Analyst     |  987654321 |  28000 | dp01    |
+| emp03  | Mariya   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp01    |
+| emp06  | Alen     | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
+| emp08  | Adithya  | 1990-05-31 | Analyst     | 1234567890 |  42000 | dp01    |
+| emp09  | Anu      | 1990-05-31 | Analyst     | 1234567890 |   7000 | dp02    |
+| emp10  | Anupma   | 1990-05-31 | Manager     | 1234567890 |  45000 | dp02    |
++--------+----------+------------+-------------+------------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql&gt; select count(dept_no) from Employee;
++----------------+
+| count(dept_no) |
++----------------+
+|              9 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select department, count(*) from Employee group by dept_no;
+ERROR 1054 (42S22): Unknown column &apos;department&apos; in &apos;field list&apos;
+mysql&gt; select dept_no, count(*) from Employee group by dept_no;
++---------+----------+
+| dept_no | count(*) |
++---------+----------+
+| dp01    |        4 |
+| dp02    |        5 |
++---------+----------+
+2 rows in set (0.00 sec)
+
+mysql&gt; select dept_no, avg(salary) from Employee group by dept_no;
++---------+-------------+
+| dept_no | avg(salary) |
++---------+-------------+
+| dp01    |  33750.0000 |
+| dp02    |  22240.0000 |
++---------+-------------+
+2 rows in set (0.00 sec)
+
+mysql&gt; select dept_no, sum(salary) from Employee group by dept_no;
++---------+-------------+
+| dept_no | sum(salary) |
++---------+-------------+
+| dp01    |      135000 |
+| dp02    |      111200 |
++---------+-------------+
+2 rows in set (0.00 sec)
+
+mysql&gt; select dept_no, max(salary),min(salary) from Employee group by dept_no;
++---------+-------------+-------------+
+| dept_no | max(salary) | min(salary) |
++---------+-------------+-------------+
+| dp01    |       45000 |       20000 |
+| dp02    |       45000 |        4200 |
++---------+-------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql&gt; select dept_no, avg(salary) from Employee where dept_no !=&apos;dp01&apos;;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column &apos;new.Employee.Dept_no&apos;; this is incompatible with sql_mode=only_full_group_by
+mysql&gt; select dept_no, avg(salary) from Employee where dept_no !=&apos;dp01&apos; group by dept_no;
++---------+-------------+
+| dept_no | avg(salary) |
++---------+-------------+
+| dp02    |  22240.0000 |
++---------+-------------+
+1 row in set (0.00 sec)
+
+mysql&gt; ^C
+mysql&gt; select dept_no, avg(salary) from Employee where dept_no !=&apos;dp01&apos; group by dept_no having avg(salary)&gt;20000 ORDER BY avg(salary) ASC;
++---------+-------------+
+| dept_no | avg(salary) |
++---------+-------------+
+| dp02    |  22240.0000 |
++---------+-------------+
+1 row in set (0.00 sec)
+
+mysql&gt; 
+
