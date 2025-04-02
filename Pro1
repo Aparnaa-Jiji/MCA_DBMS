@@ -1,0 +1,34 @@
+write a stored procedure to read three numbers and find numbers and find the greatest among them.
+
+DELIMITER $$
+mysql> 
+mysql> CREATE PROCEDURE FindGreatestNumber(IN num1 INT, IN num2 INT, IN num3 INT)
+    -> BEGIN
+    ->     DECLARE greatest INT;
+    ->     
+    ->     -- Compare the three numbers to find the greatest
+    ->     IF num1 >= num2 AND num1 >= num3 THEN
+    ->         SET greatest = num1;
+    ->     ELSEIF num2 >= num1 AND num2 >= num3 THEN
+    ->         SET greatest = num2;
+    ->     ELSE
+    ->         SET greatest = num3;
+    ->     END IF;
+    ->     
+    ->     -- Return the greatest number
+    ->     SELECT greatest AS GreatestNumber;
+    -> END $$
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> 
+mysql> DELIMITER ;
+mysql> call FindGreatestNumber(10,22,55);
++----------------+
+| GreatestNumber |
++----------------+
+|             55 |
++----------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
