@@ -1,0 +1,36 @@
+Factorial of a number
+
+mysql> DELIMITER $$
+mysql> 
+mysql> CREATE PROCEDURE FindFactorial(IN num INT)
+    -> BEGIN
+    ->     DECLARE result INT DEFAULT 1;
+    ->     DECLARE i INT DEFAULT 1;
+    ->     
+    ->     -- Handle edge case where the number is 0 or negative
+    ->     IF num < 0 THEN
+    ->         SELECT 'Factorial is not defined for negative numbers' AS ErrorMessage;
+    ->     ELSE
+    ->         -- Calculate the factorial using a loop
+    ->         WHILE i <= num DO
+    ->             SET result = result * i;
+    ->             SET i = i + 1;
+    ->         END WHILE;
+    ->         
+    ->         -- Return the factorial result
+    ->         SELECT result AS Factorial;
+    ->     END IF;
+    -> END $$
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> 
+mysql> DELIMITER ;
+mysql> call FindFactorial(5);
++-----------+
+| Factorial |
++-----------+
+|       120 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
