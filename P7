@@ -1,0 +1,233 @@
+mongosh
+Current Mongosh Log ID:	67f5f892914e75a819d861df
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.0
+Using MongoDB:		6.0.21
+Using Mongosh:		2.5.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-04-09T09:41:13.464+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2025-04-09T09:41:14.692+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2025-04-09T09:41:14.693+05:30: vm.max_map_count is too low
+------
+
+test> use Sdb;
+switched to db Sdb
+Sdb> db.student.insertMany([
+... {rollno:1,name:"John",department:"MCA",semester:3,cgpa:8.8},
+... { rollno: 2, name: "Jane", department: "MCA", semester: 2, cgpa: 7.4 },{ rollno: 3, name: "Jim", department: "BCA", semester: 4, cgpa: 6.9 },
+... { rollno: 4, name: "Jack", department: "MCA", semester: 3, cgpa: 8.1 },{ rollno: 5, name: "Jill", department: "MCA", semester: 1, cgpa: 7.6 },
+... { rollno: 6, name: "Mike", department: "MCA", semester: 2, cgpa: 9.2 },{ rollno: 7, name: "Maya", department: "BBA", semester: 5, cgpa: 6.5 },{ ro... { rollno: 6, name: "Mike", department: "MCA", semester: 2, cgpa: 9.2 },{ rollno: 7, name: "Maya", department: "BBA", semester: 5, cgpa: 6.5 },{ rollno: 8, name: "Nina", department: "MCA", semester: 4, cgpa: 7.8 },{ rollno: 9, name: "Oscar", department: "MCA", semester: 3, cgpa: 8.9 },{ rollno: 10, name: "Paul", department: "MCA", semester: 4, cgpa: 7.3 }]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67f5f9b7914e75a819d861e0'),
+    '1': ObjectId('67f5f9b7914e75a819d861e1'),
+    '2': ObjectId('67f5f9b7914e75a819d861e2'),
+    '3': ObjectId('67f5f9b7914e75a819d861e3'),
+    '4': ObjectId('67f5f9b7914e75a819d861e4'),
+    '5': ObjectId('67f5f9b7914e75a819d861e5'),
+    '6': ObjectId('67f5f9b7914e75a819d861e6'),
+    '7': ObjectId('67f5f9b7914e75a819d861e7'),
+    '8': ObjectId('67f5f9b7914e75a819d861e8'),
+    '9': ObjectId('67f5f9b7914e75a819d861e9')
+  }
+}
+Sdb> db.student.find({ department: "MCA" });
+[
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e0'),
+    rollno: 1,
+    name: 'John',
+    department: 'MCA',
+    semester: 3,
+    cgpa: 8.8
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e1'),
+    rollno: 2,
+    name: 'Jane',
+    department: 'MCA',
+    semester: 2,
+    cgpa: 7.4
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e3'),
+    rollno: 4,
+    name: 'Jack',
+    department: 'MCA',
+    semester: 3,
+    cgpa: 8.1
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e4'),
+    rollno: 5,
+    name: 'Jill',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 7.6
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e5'),
+    rollno: 6,
+    name: 'Mike',
+    department: 'MCA',
+    semester: 2,
+    cgpa: 9.2
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e7'),
+    rollno: 8,
+    name: 'Nina',
+    department: 'MCA',
+    semester: 4,
+    cgpa: 7.8
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e8'),
+    rollno: 9,
+    name: 'Oscar',
+    department: 'MCA',
+    semester: 3,
+    cgpa: 8.9
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e9'),
+    rollno: 10,
+    name: 'Paul',
+    department: 'MCA',
+    semester: 4,
+    cgpa: 7.3
+  }
+]
+Sdb> db.student.updateMany({department: "MCA"},{$set: {semester: 1 }} );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 8,
+  modifiedCount: 7,
+  upsertedCount: 0
+}
+Sdb> db.student.find();
+[
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e0'),
+    rollno: 1,
+    name: 'John',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 8.8
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e1'),
+    rollno: 2,
+    name: 'Jane',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 7.4
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e2'),
+    rollno: 3,
+    name: 'Jim',
+    department: 'BCA',
+    semester: 4,
+    cgpa: 6.9
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e3'),
+    rollno: 4,
+    name: 'Jack',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 8.1
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e4'),
+    rollno: 5,
+    name: 'Jill',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 7.6
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e5'),
+    rollno: 6,
+    name: 'Mike',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 9.2
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e6'),
+    rollno: 7,
+    name: 'Maya',
+    department: 'BBA',
+    semester: 5,
+    cgpa: 6.5
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e7'),
+    rollno: 8,
+    name: 'Nina',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 7.8
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e8'),
+    rollno: 9,
+    name: 'Oscar',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 8.9
+  },
+  {
+    _id: ObjectId('67f5f9b7914e75a819d861e9'),
+    rollno: 10,
+    name: 'Paul',
+    department: 'MCA',
+    semester: 1,
+    cgpa: 7.3
+  }
+]
+Sdb> use inventory;
+switched to db inventory
+inventory> db.products.insertMany([
+... {
+... "_id" : 1,
+...  "name" : "Phone",
+... "price" : 799,
+... "releaseDate" : ISODate("2011-05-24"),
+... "spec" : {
+... "ram" : 4,
+... "screen" : 6.5,
+... "cpu" : 2.66},
+... "color" : ["white", "black"],
+... "storage" : [64, 128, 256]},
+... {
+... "_id" : 2,
+... "name" : "Tablet",
+... "price" : 799,
+... "releaseDate" : ISODate("2011-09-01"),
+... "spec" : {
+... "ram" : 16,
+... "screen" : 9.5,
+... "cpu" : 3.66},
+... "color" : ["white", "black", "purple"],
+... "storage" : [128, 256, 512]},
+... {"_id" : 3,
+... "name" : "SmartPhone",
+... "price" : 899,
+... "releaseDate" : ISODate("2022-01-14"),
+... "spec" : {
+... "ram" : 12,
+... "screen" : 9.7,
+... "cpu" : 1.66},"color" : ["blue"],"storage" : [16, 64, 128]
+... }]);
+... 
+{ acknowledged: true, insertedIds: { '0': 1, '1': 2, '2': 3 } }
+inventory> 
+
