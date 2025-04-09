@@ -478,3 +478,101 @@ inventory> db.products.insertMany([
 ... ]);
 { acknowledged: true, insertedIds: { '0': 1, '1': 2, '2': 3 } }
 inventory>
+[4/8, 3:12 PM] Manjima: inventory> db.products.find()
+[
+  {
+    _id: 1,
+    name: 'Phone',
+    price: 799,
+    releaseDate: ISODate('2011-05-24T00:00:00.000Z'),
+    spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+    color: [ 'white', 'black' ],
+    storage: [ 64, 128, 256 ]
+  },
+  {
+    _id: 2,
+    name: 'Tablet',
+    price: 799,
+    releaseDate: ISODate('2011-09-01T00:00:00.000Z'),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  },
+  {
+    _id: 3,
+    name: 'SmartPhone',
+    price: 899,
+    releaseDate: ISODate('2022-01-14T00:00:00.000Z'),
+    spec: { ram: 12, screen: 9.7, cpu: 1.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  }
+]
+[4/8, 3:14 PM] Manjima: inventory> db.products.find({_id:3})
+[
+  {
+    _id: 3,
+    name: 'SmartPhone',
+    price: 899,
+    releaseDate: ISODate('2022-01-14T00:00:00.000Z'),
+    spec: { ram: 12, screen: 9.7, cpu: 1.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  }
+]
+[4/8, 3:15 PM] Manjima: inventory> db.products.findOne()
+{
+  _id: 1,
+  name: 'Phone',
+  price: 799,
+  releaseDate: ISODate('2011-05-24T00:00:00.000Z'),
+  spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+  color: [ 'white', 'black' ],
+  storage: [ 64, 128, 256 ]
+}
+[4/8, 3:16 PM] Manjima: inventory> db.products.find({_id:2},{name:1,price:1})
+[ { _id: 2, name: 'Tablet', price: 799 } ]
+[4/8, 3:18 PM] Manjima: inventory> db.products.find({price: {$eq: 799}})
+[
+  {
+    _id: 1,
+    name: 'Phone',
+    price: 799,
+    releaseDate: ISODate('2011-05-24T00:00:00.000Z'),
+    spec: { ram: 4, screen: 6.5, cpu: 2.66 },
+    color: [ 'white', 'black' ],
+    storage: [ 64, 128, 256 ]
+  },
+  {
+    _id: 2,
+    name: 'Tablet',
+    price: 799,
+    releaseDate: ISODate('2011-09-01T00:00:00.000Z'),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  }
+]
+[4/8, 3:19 PM] Manjima: inventory> db.products.deleteOne({_id: 1})
+{ acknowledged: true, deletedCount: 1 }
+[4/8, 3:19 PM] Manjima: inventory> db.products.find()
+[
+  {
+    _id: 2,
+    name: 'Tablet',
+    price: 799,
+    releaseDate: ISODate('2011-09-01T00:00:00.000Z'),
+    spec: { ram: 16, screen: 9.5, cpu: 3.66 },
+    color: [ 'white', 'black', 'purple' ],
+    storage: [ 128, 256, 512 ]
+  },
+  {
+    _id: 3,
+    name: 'SmartPhone',
+    price: 899,
+    releaseDate: ISODate('2022-01-14T00:00:00.000Z'),
+    spec: { ram: 12, screen: 9.7, cpu: 1.66 },
+    color: [ 'blue' ],
+    storage: [ 16, 64, 128 ]
+  }
+]
